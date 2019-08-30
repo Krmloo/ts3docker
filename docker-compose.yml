@@ -1,6 +1,6 @@
 version: '3.6'
 services:
-  ts3:
+  teamspeak3:
     image: teamspeak
     restart: always
     network_mode: host
@@ -16,14 +16,14 @@ services:
     volumes:
       - /opt/ts3/ts3:/var/ts3server
     depends_on:
-      - ts3db
+      - db
     healthcheck:
       test: ["CMD", "nc", "-zuv", "127.0.0.1" , "9987"]
       interval: 83s
       timeout: 10s
       retries: 3
       start_period: 60s
-  ts3db:
+  db:
     image: mariadb
     restart: always
     environment:
@@ -40,7 +40,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
-  ts3autoheal:
+  autoheal:
     image: willfarrell/autoheal
     restart: always
     environment:
