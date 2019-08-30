@@ -11,7 +11,7 @@ services:
       TS3SERVER_DB_USER: root
       TS3SERVER_DB_PASSWORD: examplepassword
       TS3SERVER_DB_NAME: teamspeak
-      TS3SERVER_DB_WAITUNTILREADY: 30
+      TS3SERVER_DB_WAITUNTILREADY: 120
       TS3SERVER_LICENSE: accept
     volumes:
       - /opt/ts3/ts3:/var/ts3server
