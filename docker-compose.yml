@@ -35,12 +35,12 @@ services:
     volumes:
       - /opt/ts3/ts3db:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "/usr/bin/mysql" , "--user=root" , "--password=examplepassword" , "--execute \"SHOW DATABASES;\""]
+      test: ["CMD", "/usr/bin/mysql" , "--user=root" , "--password=examplepassword" , "--execute" , "SHOW DATABASES;"]
       interval: 83s
       timeout: 10s
       retries: 3
-      start_period: 10s
-  autoheal:
+      start_period: 15s
+  ts3autoheal:
     image: willfarrell/autoheal
     restart: always
     environment:
