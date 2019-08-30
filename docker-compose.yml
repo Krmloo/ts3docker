@@ -30,6 +30,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: examplepassword
       MYSQL_DATABASE: teamspeak
+      MARIADB_EXTRA_FLAGS: --log-warnings=1
     ports:
       - "127.0.0.1:3306:3306"
     volumes:
