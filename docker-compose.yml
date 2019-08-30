@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.6'
 services:
   ts3:
     image: teamspeak
@@ -15,13 +15,35 @@ services:
       TS3SERVER_LICENSE: accept
     volumes:
       - /opt/ts3/ts3:/var/ts3server
+    depends_on:
+      - ts3db
+    healthcheck:
+      test: ["CMD", "nc", "-zuv", "127.0.0.1" , "9987"]
+      interval: 83s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
   ts3db:
     image: mariadb
     restart: always
     environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: examplepassword
       MYSQL_DATABASE: teamspeak
     ports:
       - "127.0.0.1:3306:3306"
     volumes:
       - /opt/ts3/ts3db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "/usr/bin/mysql" , "--user=root" , "--password=examplepassword" , "--execute \"SHOW DATABASES;\""]
+      interval: 83s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+  autoheal:
+    image: willfarrell/autoheal
+    restart: always
+    environment:
+      AUTOHEAL_CONTAINER_LABEL: all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
