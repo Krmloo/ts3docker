@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  ts3:
+    image: teamspeak
+    restart: always
+    network_mode: host
+    environment:
+      TS3SERVER_DB_PLUGIN: ts3db_mariadb
+      TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+      TS3SERVER_DB_HOST: 127.0.0.1
+      TS3SERVER_DB_USER: root
+      TS3SERVER_DB_PASSWORD: examplepassword
+      TS3SERVER_DB_NAME: teamspeak
+      TS3SERVER_DB_WAITUNTILREADY: 30
+      TS3SERVER_LICENSE: accept
+    volumes:
+      - ts3files:/var/ts3server/files
+  ts3db:
+    image: mariadb
+    restart: always
+    network_mode: host
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepassword
+      MYSQL_DATABASE: teamspeak
+    volumes:
+      - ts3db:/var/lib/mysql
+volumes:
+  ts3db:
+    external: true
+  ts3files:
+    external: true
