@@ -14,18 +14,14 @@ services:
       TS3SERVER_DB_WAITUNTILREADY: 30
       TS3SERVER_LICENSE: accept
     volumes:
-      - ts3files:/var/ts3server/files
+      - /opt/ts3/ts3:/var/ts3server
   ts3db:
     image: mariadb
     restart: always
-    network_mode: host
     environment:
       MYSQL_ROOT_PASSWORD: examplepassword
       MYSQL_DATABASE: teamspeak
+    ports:
+      - "127.0.0.1:3306:3306"
     volumes:
-      - ts3db:/var/lib/mysql
-volumes:
-  ts3db:
-    external: true
-  ts3files:
-    external: true
+      - /opt/ts3/ts3db:/var/lib/mysql
