@@ -1,5 +1,5 @@
 # ts3docker
-Just a docker-compose.yml for fast ts3 server deployment
+docker-compose.yml for fast ts3 server deployment with healthchecks and autorecovery
 
 - Clone this repo
   - `git clone https://github.com/krmloo/ts3docker`
